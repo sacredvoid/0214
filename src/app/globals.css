@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-playfair: var(--font-playfair);
-  --font-dancing: var(--font-dancing);
-  --font-lora: var(--font-lora);
-  --font-caveat: var(--font-caveat);
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-dancing: 'Dancing Script', cursive;
+  --font-lora: 'Lora', Georgia, serif;
+  --font-caveat: 'Caveat', cursive;
   --color-lavender: #B57EDC;
   --color-lavender-light: #E6E6FA;
   --color-lavender-dark: #7B68EE;
