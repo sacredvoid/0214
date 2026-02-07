@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-dancing: 'Dancing Script', cursive;
+  --font-lora: 'Lora', Georgia, serif;
+  --font-caveat: 'Caveat', cursive;
+  --color-lavender: #B57EDC;
+  --color-lavender-light: #E6E6FA;
+  --color-lavender-dark: #7B68EE;
+  --color-rose-pink: #FFB7C5;
+  --color-rose-hot: #FF69B4;
+  --color-parchment: #F5E6D3;
+  --color-gold: #D4AF37;
+  --color-cream: #FFF8E7;
+  --color-charcoal: #1a1a2e;
+  --color-earth-dark: #2D1810;
+  --color-sepia: #704214;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom cursor for interactive elements */
+.cursor-sparkle {
+  cursor: pointer;
+}
