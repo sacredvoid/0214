@@ -1,226 +1,94 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-const experiences = [
-  {
-    id: 1,
-    title: "The Museum of Us",
-    subtitle: "A Curated Exhibition of Love",
-    description: "Walk through a dark, elegant gallery where our memories hang in golden frames.",
-    href: "/museum",
-    gradient: "from-[#1a1a2e] to-[#2D1B69]",
-    accent: "border-[#D4AF37]",
-    icon: "🖼️",
-  },
-  {
-    id: 2,
-    title: "Dandiya Night to Diamond Ring",
-    subtitle: "Where It All Began",
-    description: "From Cabot Hall to NYC — a cinematic journey through our love story.",
-    href: "/dandiya",
-    gradient: "from-[#2D1B69] to-[#FF8C00]",
-    accent: "border-[#FFD700]",
-    icon: "💃",
-  },
-  {
-    id: 3,
-    title: "The Infinite Love Letter",
-    subtitle: "Dear Kuttu Paapu...",
-    description: "A handwritten letter that unfolds with every scroll, sealed with love.",
-    href: "/letter",
-    gradient: "from-[#8B0000] to-[#B57EDC]",
-    accent: "border-[#8B0000]",
-    icon: "💌",
-  },
-  {
-    id: 4,
-    title: "Srusti's Secret Garden",
-    subtitle: "Watch Our Love Grow",
-    description: "A magical garden that blooms as you scroll, with memories hidden in every flower.",
-    href: "/garden",
-    gradient: "from-[#2d5a27] to-[#87CEEB]",
-    accent: "border-[#FFB7C5]",
-    icon: "🌸",
-  },
-];
-
 export default function HomePage() {
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    import("animejs").then(({ animate, stagger }) => {
-      animate(titleRef.current!, {
+    let isMounted = true;
+
+    const runIntro = async () => {
+      const { animate } = await import("animejs");
+      if (!isMounted || !rootRef.current) {
+        return;
+      }
+
+      animate('[data-hero="eyebrow"]', {
         opacity: [0, 1],
-        translateY: [-30, 0],
-        duration: 1000,
+        translateY: [16, 0],
+        duration: 460,
         ease: "outQuad",
       });
 
-      animate(subtitleRef.current!, {
+      animate('[data-hero="title"]', {
+        opacity: [0, 1],
+        translateY: [24, 0],
+        duration: 860,
+        delay: 120,
+        ease: "outQuad",
+      });
+
+      animate('[data-hero="copy"]', {
         opacity: [0, 1],
         translateY: [20, 0],
-        duration: 1000,
-        delay: 400,
+        duration: 780,
+        delay: 280,
         ease: "outQuad",
       });
 
-      animate(".experience-card", {
+      animate('[data-hero="cta"]', {
         opacity: [0, 1],
-        translateY: [60, 0],
-        scale: [0.9, 1],
-        delay: stagger(150, { start: 800 }),
-        duration: 700,
+        translateY: [16, 0],
+        duration: 680,
+        delay: 420,
         ease: "outQuad",
       });
+    };
 
-      animate(".floating-heart", {
-        translateY: [-10, 10],
-        duration: 2000,
-        ease: "inOutQuad",
-        alternate: true,
-        loop: true,
-        delay: stagger(300),
-      });
+    void runIntro();
 
-      animate(".sparkle", {
-        opacity: [0.3, 1, 0.3],
-        scale: [0.8, 1.2, 0.8],
-        duration: 2000,
-        ease: "inOutQuad",
-        loop: true,
-        delay: stagger(400),
-      });
-    });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#0a0010] via-[#1a0a2e] to-[#0a0010] relative overflow-hidden">
-      {/* Floating background hearts */}
-      {[...Array(8)].map((_, i) => (
-        <div
-          key={i}
-          className="floating-heart absolute text-[#FFB7C5] opacity-10 pointer-events-none select-none"
-          style={{
-            left: `${10 + (i * 12) % 80}%`,
-            top: `${5 + (i * 17) % 70}%`,
-            fontSize: `${20 + (i * 7) % 30}px`,
-          }}
+    <main
+      ref={rootRef}
+      className="relative flex min-h-screen items-center overflow-hidden px-6 py-12 text-[var(--color-ivory)] md:px-10"
+      style={{
+        background:
+          "radial-gradient(circle at 14% 10%, rgba(255, 179, 204, 0.22), transparent 34%), radial-gradient(circle at 85% 12%, rgba(235, 217, 255, 0.16), transparent 37%), linear-gradient(180deg, #06060d 0%, #0d0913 56%, #130f1b 100%)",
+      }}
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(transparent_95%,rgba(255,255,255,0.04)_95%)] bg-[size:100%_24px] opacity-25" />
+      <div className="relative mx-auto w-full max-w-5xl rounded-[2.2rem] border border-white/10 bg-black/25 p-8 shadow-[var(--shadow-hero)] backdrop-blur-xl md:p-14">
+        <p
+          data-hero="eyebrow"
+          className="w-fit rounded-full border border-[var(--color-gold-soft)]/40 px-4 py-2 text-[0.66rem] uppercase tracking-[0.24em] text-[var(--color-ivory-soft)]"
         >
-          ♥
-        </div>
-      ))}
+          Valentine Edition 2026
+        </p>
 
-      {/* Sparkle decorations */}
-      {[...Array(12)].map((_, i) => (
-        <div
-          key={`s-${i}`}
-          className="sparkle absolute w-1 h-1 rounded-full pointer-events-none"
-          style={{
-            left: `${5 + (i * 9) % 90}%`,
-            top: `${10 + (i * 11) % 80}%`,
-            backgroundColor: i % 3 === 0 ? "#D4AF37" : i % 3 === 1 ? "#B57EDC" : "#FFB7C5",
-          }}
-        />
-      ))}
-
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 md:py-24">
-        {/* Header */}
-        <div className="text-center mb-16 md:mb-24">
-          <h1
-            ref={titleRef}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 opacity-0"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              background: "linear-gradient(135deg, #FFB7C5, #B57EDC, #D4AF37)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            For Srusti
-          </h1>
-          <p
-            ref={subtitleRef}
-            className="text-lg md:text-2xl opacity-0"
-            style={{
-              fontFamily: "var(--font-dancing)",
-              color: "#E6E6FA",
-            }}
-          >
-            Choose your Valentine&apos;s experience, Kuttu Paapu
-          </p>
-        </div>
-
-        {/* Experience Cards */}
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+        <h1
+          data-hero="title"
+          className="mt-8 max-w-4xl text-5xl leading-[0.96] md:text-7xl"
+          style={{ fontFamily: "var(--font-display-premium)" }}
         >
-          {experiences.map((exp) => (
-            <a
-              key={exp.id}
-              href={exp.href}
-              className={`experience-card group relative rounded-2xl border-2 ${exp.accent} overflow-hidden opacity-0 transition-transform duration-300 hover:scale-[1.03] hover:shadow-2xl`}
-              style={{ minHeight: "220px" }}
-            >
-              {/* Gradient Background */}
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${exp.gradient} opacity-80`}
-              />
+          A museum-like love story, redesigned with cinematic polish.
+        </h1>
 
-              {/* Hover shimmer */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <p data-hero="copy" className="mt-6 max-w-2xl text-base text-white/80 md:text-xl">
+          Subtle motion. Premium typography. Golden frames. One clear journey from first memory to the grand question.
+        </p>
 
-              {/* Content */}
-              <div className="relative z-10 p-6 md:p-8 h-full flex flex-col justify-between">
-                <div>
-                  <span className="text-3xl md:text-4xl mb-3 block">{exp.icon}</span>
-                  <h2
-                    className="text-2xl md:text-3xl font-bold text-white mb-1"
-                    style={{ fontFamily: "var(--font-playfair)" }}
-                  >
-                    {exp.title}
-                  </h2>
-                  <p
-                    className="text-sm md:text-base mb-3"
-                    style={{
-                      fontFamily: "var(--font-dancing)",
-                      color: "#E6E6FA",
-                    }}
-                  >
-                    {exp.subtitle}
-                  </p>
-                </div>
-                <p
-                  className="text-sm md:text-base text-gray-300"
-                  style={{ fontFamily: "var(--font-lora)" }}
-                >
-                  {exp.description}
-                </p>
-
-                {/* Arrow */}
-                <div className="absolute bottom-6 right-6 text-white/40 group-hover:text-white/80 group-hover:translate-x-1 transition-all duration-300 text-xl">
-                  →
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <div className="text-center mt-16 md:mt-24">
-          <p
-            className="text-sm md:text-base"
-            style={{
-              fontFamily: "var(--font-caveat)",
-              color: "#B57EDC",
-              opacity: 0.7,
-            }}
-          >
-            Made with all my love, for you ♥
-          </p>
+        <div data-hero="cta" className="mt-9 flex flex-wrap items-center gap-4">
+          <Link href="/museum" className="museum-button museum-button-primary">
+            Enter the Museum
+          </Link>
+          <span className="museum-chip">Dual engine mode: Anime.js and GSAP</span>
         </div>
       </div>
     </main>
