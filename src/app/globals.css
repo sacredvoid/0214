@@ -70,23 +70,144 @@ body {
 
 .museum-app {
   background:
-    radial-gradient(circle at 8% 4%, rgba(255, 194, 215, 0.2), transparent 28%),
-    radial-gradient(circle at 85% 10%, rgba(206, 169, 255, 0.15), transparent 34%),
-    linear-gradient(180deg, var(--color-obsidian) 0%, var(--color-obsidian-soft) 48%, #15101f 100%);
+    radial-gradient(circle at 8% 6%, rgba(255, 188, 213, 0.18), transparent 30%),
+    radial-gradient(circle at 82% 10%, rgba(172, 151, 229, 0.12), transparent 34%),
+    linear-gradient(180deg, #09080f 0%, #12101a 46%, #14111d 100%);
 }
 
 .museum-backdrop {
-  background-image:
-    linear-gradient(transparent 94%, rgba(255, 255, 255, 0.04) 94%),
-    linear-gradient(90deg, transparent 96%, rgba(255, 255, 255, 0.03) 96%);
-  background-size: 100% 30px, 30px 100%;
-  opacity: 0.24;
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255, 218, 232, 0.07), transparent 42%),
+    radial-gradient(circle at 80% 22%, rgba(223, 187, 255, 0.06), transparent 48%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.012) 0px, rgba(255, 255, 255, 0.012) 1px, transparent 1px, transparent 16px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0px, rgba(0, 0, 0, 0.1) 1px, transparent 1px, transparent 20px);
+  opacity: 0.5;
+}
+
+.museum-architecture {
+  z-index: 0;
+}
+
+.museum-cornice {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 8.5rem;
+  background:
+    linear-gradient(180deg, rgba(236, 194, 118, 0.13), rgba(236, 194, 118, 0.03) 26%, transparent 64%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0) 72%);
+  border-bottom: 1px solid rgba(229, 186, 111, 0.2);
+}
+
+.museum-floor {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 34svh;
+  background:
+    linear-gradient(180deg, rgba(17, 14, 23, 0) 0%, rgba(17, 14, 23, 0.7) 52%, rgba(10, 8, 14, 0.96) 100%),
+    repeating-linear-gradient(90deg, rgba(210, 170, 105, 0.05) 0px, rgba(210, 170, 105, 0.05) 1px, transparent 1px, transparent 90px);
+  transform-origin: bottom;
+  transform: perspective(860px) rotateX(62deg);
+  border-top: 1px solid rgba(220, 186, 122, 0.24);
+}
+
+.museum-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 32%, rgba(4, 4, 7, 0.6) 100%);
 }
 
 .museum-scene {
-  min-height: min(100svh, 900px);
+  min-height: clamp(680px, 90svh, 860px);
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.museum-room {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 1px solid rgba(224, 186, 118, 0.19);
+  background:
+    linear-gradient(180deg, rgba(31, 24, 43, 0.82), rgba(18, 14, 26, 0.94)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02), transparent 32%, rgba(255, 255, 255, 0.02));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 243, 219, 0.08),
+    inset 0 -80px 130px rgba(2, 1, 4, 0.46),
+    0 42px 88px rgba(0, 0, 0, 0.48);
+}
+
+.museum-room::before {
+  content: "";
+  position: absolute;
+  inset: 1.2rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(224, 186, 118, 0.12);
+  pointer-events: none;
+}
+
+.museum-room::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 26%;
+  background: linear-gradient(180deg, rgba(15, 11, 22, 0), rgba(7, 5, 10, 0.58));
+  pointer-events: none;
+}
+
+.museum-room-content {
+  position: relative;
+  z-index: 3;
+  padding: clamp(1.3rem, 2vw, 2.2rem);
+}
+
+.museum-light {
+  position: absolute;
+  top: -7rem;
+  width: 42%;
+  height: min(34rem, 58%);
+  background: radial-gradient(ellipse at top, rgba(255, 239, 202, 0.52), rgba(255, 211, 168, 0.17) 30%, transparent 70%);
+  filter: blur(2px);
+  pointer-events: none;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.museum-light-left {
+  left: -2%;
+  transform: rotate(8deg);
+}
+
+.museum-light-right {
+  right: -2%;
+  transform: rotate(-8deg);
+}
+
+.museum-curator-card {
+  position: relative;
+  margin-inline: auto;
+  width: 100%;
+  max-width: 34rem;
+  border-radius: 1.4rem;
+  border: 1px solid rgba(222, 184, 117, 0.24);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 239, 202, 0.08), transparent 44%),
+    linear-gradient(180deg, rgba(15, 11, 22, 0.72), rgba(10, 8, 15, 0.88));
+  padding: 1.1rem 1.15rem 1.35rem;
+  box-shadow: 0 26px 52px rgba(0, 0, 0, 0.4);
+}
+
+.museum-curator-header {
+  border-radius: 1rem;
+  border: 1px solid rgba(222, 184, 117, 0.2);
+  background: rgba(0, 0, 0, 0.22);
+  padding: 1rem;
 }
 
 .museum-button {
@@ -94,8 +215,9 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  padding: 0.78rem 1.5rem;
-  font-size: 0.72rem;
+  padding: 0.82rem 1.62rem;
+  font-size: 0.66rem;
+  font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   transition: transform var(--duration-fast), background-color var(--duration-fast), box-shadow var(--duration-fast);
@@ -107,20 +229,20 @@ body {
 }
 
 .museum-button-primary {
-  border: 1px solid rgba(255, 206, 223, 0.55);
-  background: linear-gradient(140deg, rgba(255, 192, 214, 0.45), rgba(240, 126, 161, 0.36));
+  border: 1px solid rgba(244, 202, 132, 0.5);
+  background: linear-gradient(140deg, rgba(232, 173, 189, 0.58), rgba(186, 127, 173, 0.42));
   color: var(--color-ivory);
-  box-shadow: 0 14px 32px rgba(225, 120, 156, 0.22);
+  box-shadow: 0 14px 32px rgba(180, 117, 162, 0.3);
 }
 
 .museum-button-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 18px 42px rgba(225, 120, 156, 0.34);
+  box-shadow: 0 18px 42px rgba(180, 117, 162, 0.42);
 }
 
 .museum-button-secondary {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 243, 219, 0.22);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--color-ivory-soft);
 }
 
@@ -133,26 +255,89 @@ body {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 243, 219, 0.18);
+  background: rgba(255, 255, 255, 0.04);
   padding: 0.48rem 0.9rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.17em;
+  font-size: 0.61rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-ivory-soft);
 }
 
-.museum-frame::after {
-  content: "";
+.museum-frame {
+  overflow: visible;
+}
+
+.museum-frame-wire {
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  border: 1px solid rgba(222, 184, 117, 0.25);
-  pointer-events: none;
+  left: 50%;
+  top: -1.35rem;
+  width: 2px;
+  height: 1.35rem;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(223, 182, 116, 0.74), rgba(223, 182, 116, 0.2));
+  z-index: 1;
+}
+
+.museum-frame-ornate {
+  position: relative;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(222, 184, 117, 0.42);
+  background:
+    linear-gradient(135deg, rgba(232, 194, 125, 0.36), rgba(116, 78, 42, 0.58) 35%, rgba(235, 200, 142, 0.3)),
+    linear-gradient(180deg, rgba(16, 12, 22, 0.62), rgba(16, 12, 22, 0.92));
+  padding: clamp(0.65rem, 1.4vw, 0.95rem);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 213, 0.34),
+    inset 0 -1px 0 rgba(49, 31, 14, 0.6),
+    0 28px 44px rgba(0, 0, 0, 0.5);
+}
+
+.museum-frame-mat {
+  border-radius: 1.15rem;
+  border: 1px solid rgba(255, 241, 218, 0.22);
+  background: linear-gradient(180deg, rgba(253, 241, 224, 0.08), rgba(22, 16, 29, 0.42));
+  padding: clamp(0.45rem, 1vw, 0.65rem);
+}
+
+.museum-frame-art {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.86rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.museum-frame-plaque {
+  position: absolute;
+  bottom: -0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  border: 1px solid rgba(222, 184, 117, 0.3);
+  background: linear-gradient(180deg, rgba(24, 18, 33, 0.94), rgba(11, 8, 16, 0.95));
+  padding: 0.34rem 0.8rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ivory);
+  white-space: nowrap;
+  z-index: 4;
 }
 
 .control-surface {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.26);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+}
+
+.museum-grand-frame {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(222, 184, 117, 0.4);
+  background:
+    radial-gradient(circle at 50% -14%, rgba(255, 243, 218, 0.22), transparent 40%),
+    linear-gradient(180deg, rgba(16, 12, 24, 0.7), rgba(10, 8, 14, 0.92));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 222, 0.22),
+    0 34px 60px rgba(0, 0, 0, 0.5);
 }
 
 .museum-petal {
@@ -186,6 +371,14 @@ body {
 @media (max-width: 768px) {
   .museum-scene {
     min-height: auto;
+  }
+
+  .museum-room-content {
+    padding: 1.05rem;
+  }
+
+  .museum-floor {
+    height: 28svh;
   }
 }
 

@@ -35,7 +35,7 @@ export function QuestionScene({
   }, [noAttempts]);
 
   return (
-    <div className="mx-auto max-w-3xl rounded-[2rem] border border-[var(--color-gold-soft)]/40 bg-[rgba(13,9,19,0.55)] p-8 text-center shadow-[var(--shadow-soft)] backdrop-blur lg:p-12">
+    <div className="museum-grand-frame mx-auto max-w-3xl p-8 text-center lg:p-12">
       <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-ivory-soft)]">{content.title}</p>
       <h2
         id="question-title"

@@ -34,7 +34,9 @@ export function createAnimeEngine(): AnimationEngine {
 
       const animationOptions: Record<string, unknown> = {
         opacity: [step.fromOpacity ?? 0, 1],
+        translateX: [step.fromX ?? 0, 0],
         translateY: [step.fromY ?? 0, 0],
+        rotate: [step.fromRotate ?? 0, 0],
         duration: step.duration,
         ease: "outQuad",
         delay: step.stagger

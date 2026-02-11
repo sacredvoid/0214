@@ -51,7 +51,9 @@ export function createGsapEngine(): AnimationEngine {
 
       const fromVars: Record<string, unknown> = {
         opacity: step.fromOpacity ?? 0,
+        x: step.fromX ?? 0,
         y: step.fromY ?? 0,
+        rotate: step.fromRotate ?? 0,
       };
 
       if (step.fromScale) {
@@ -60,7 +62,9 @@ export function createGsapEngine(): AnimationEngine {
 
       const toVars: Record<string, unknown> = {
         opacity: 1,
+        x: 0,
         y: 0,
+        rotate: 0,
         duration: Number((step.duration / 1000).toFixed(3)),
         delay: Number((step.delay / 1000).toFixed(3)),
       };

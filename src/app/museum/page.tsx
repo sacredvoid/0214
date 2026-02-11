@@ -50,6 +50,7 @@ export default function MuseumPage() {
   );
 
   const [accepted, setAccepted] = useState(false);
+  const [activeScene, setActiveScene] = useState<SceneId>("entrance");
   const [noAttempts, setNoAttempts] = useState(0);
   const [noOffset, setNoOffset] = useState({ x: 0, y: 0 });
 
@@ -80,14 +81,11 @@ export default function MuseumPage() {
   useEffect(() => {
     animatedScenesRef.current.clear();
     engineRef.current?.cleanup();
-
-    if (reducedMotion) {
-      return;
-    }
-
-    const activeEngine = buildEngine(engineName);
+    const activeEngine = reducedMotion ? null : buildEngine(engineName);
     engineRef.current = activeEngine;
-    void activeEngine.init();
+    if (activeEngine) {
+      void activeEngine.init();
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -98,6 +96,16 @@ export default function MuseumPage() {
 
           const sceneId = entry.target.getAttribute("data-scene");
           if (!sceneId || !isSceneId(sceneId) || animatedScenesRef.current.has(sceneId)) {
+            if (sceneId && isSceneId(sceneId)) {
+              setActiveScene(sceneId);
+            }
+            return;
+          }
+
+          setActiveScene(sceneId);
+
+          if (!activeEngine) {
+            animatedScenesRef.current.add(sceneId);
             return;
           }
 
@@ -116,14 +124,14 @@ export default function MuseumPage() {
     });
 
     const entranceNode = sceneRefs.current.entrance;
-    if (entranceNode) {
+    if (entranceNode && activeEngine) {
       animatedScenesRef.current.add("entrance");
       void activeEngine.animateSceneEnter("entrance", entranceNode);
     }
 
     return () => {
       observer.disconnect();
-      activeEngine.cleanup();
+      activeEngine?.cleanup();
       if (engineRef.current === activeEngine) {
         engineRef.current = null;
       }
@@ -178,10 +186,15 @@ export default function MuseumPage() {
 
   return (
     <main
-      className="museum-app relative min-h-screen pb-28 pt-28 text-[var(--color-ivory)]"
+      className="museum-app relative min-h-screen pb-24 pt-20 text-[var(--color-ivory)] md:pb-28 md:pt-24"
       data-engine={runtimeSettings.engine}
       data-reduced-motion={runtimeSettings.reducedMotion}
     >
+      <div aria-hidden="true" className="museum-architecture pointer-events-none fixed inset-0">
+        <div className="museum-cornice" />
+        <div className="museum-floor" />
+        <div className="museum-vignette" />
+      </div>
       <div className="museum-backdrop pointer-events-none absolute inset-0" />
 
       {accepted ? (
@@ -210,7 +223,7 @@ export default function MuseumPage() {
         onAudioToggle={toggleMute}
         reducedMotion={reducedMotion}
       />
-      <SceneNavigator />
+      <SceneNavigator activeScene={activeScene} />
 
       <SceneSection id="entrance" sceneRef={setSceneRef("entrance")}>
         <EntranceScene />
